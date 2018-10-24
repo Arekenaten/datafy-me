@@ -1,0 +1,39 @@
+{
+  "name": "datafy-me",
+  "version": "1.0.0",
+  "description": "Supporting repository for the 'My Life in Data' NKU Honors Capstone project of Chase Miller",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run watch\"",
+    "watch": "nodemon ./start.js --ignore public/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arekenaten/datafy-me.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arekenaten/datafy-me/issues"
+  },
+  "homepage": "https://github.com/Arekenaten/datafy-me#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.1.0",
+    "es6-promisify": "^6.0.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.0",
+    "moment": "^2.22.2",
+    "mongoose": "^5.3.4",
+    "nodemon": "^1.18.4",
+    "passport": "^0.4.0",
+    "pug": "^2.0.3"
+  }
+}
