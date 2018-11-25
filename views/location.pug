@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title= "Location"
+  body
+    h2 Chase Miller - Location Data
+    form(action='/api/location', method='POST')
+      label= "Lat"
+      input(type='number', name='location[coordinates][0]', value='0')
+      br
+      br
+
+      label= "Long"
+      input(type='number', name='location[coordinates][1]', value='0')
+      br
+      br
+
+      label= "Address"
+      input(type='text', name='location[address]', value='')
+      br
+      br
+
+      label= "Num visits"
+      input(type='number', name='numVisits', value='1')
+      br
+      br
+
+      input(type='submit')
