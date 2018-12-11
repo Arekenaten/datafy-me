@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
+const https = require('https');
 
 // Create an express app
 const app = express();

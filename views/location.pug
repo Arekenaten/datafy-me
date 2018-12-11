@@ -5,23 +5,28 @@ html
   body
     h2 Chase Miller - Location Data
     form(action='/api/location', method='POST')
-      label= "Lat"
-      input(type='number', name='location[coordinates][0]', value='0')
+      label= "Lat "
+      input(type='number', name='lat', value='0')
       br
       br
 
-      label= "Long"
-      input(type='number', name='location[coordinates][1]', value='0')
+      label= "Long "
+      input(type='number', name='long', value='0')
       br
       br
 
-      label= "Address"
-      input(type='text', name='location[address]', value='')
+      label= "Address "
+      input(type='text', name='address', value='')
       br
       br
 
-      label= "Num visits"
+      label= "Num visits "
       input(type='number', name='numVisits', value='1')
+      br
+      br
+        
+      label= "API Key "
+      input(type="text", name="key")
       br
       br
 
