@@ -7,9 +7,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const routes = require('./routes/index');
-const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 const https = require('https');
+const expressValidator = require('express-validator');
 
 // Create an express app
 const app = express();
@@ -30,7 +30,6 @@ app.use(flash());
 
 // pass variables to our templates + all requests
 app.use((req, res, next) => {
-  res.locals.h = helpers;
   res.locals.user = req.user || null;
   res.locals.currentPath = req.path;
   next();
