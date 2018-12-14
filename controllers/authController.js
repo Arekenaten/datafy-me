@@ -17,7 +17,6 @@ exports.authenticateKey = async (req, res, next) => {
 // Method for processing location data input
 exports.processLocationData = async (req, res, next) => {
   var errors = ['Errors: <br>'];
-  console.log('Lat: ' + req.body.lat + ' ' + typeof(req.body.lat) + ' ' + parseFloat(req.body.lat));
 
   // Timestamp has a default value and can be empty
   if (!(req.body.timestamp == undefined)) {

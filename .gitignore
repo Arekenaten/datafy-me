@@ -4,3 +4,4 @@ node_modules
 variables.env
 server.cert
 server.key
+/sslcert

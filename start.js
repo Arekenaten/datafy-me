@@ -24,8 +24,8 @@ app.set('port', process.env.PORT || 7777);
 // });
 
 https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
+  key: fs.readFileSync('sslcert/server.key'),
+  cert: fs.readFileSync('sslcert/server.cert')
 }, app)
 .listen(app.get('port'), () => {
   console.log(`Express running -> PORT ${app.get('port')}`)
