@@ -4,7 +4,19 @@ const Location = mongoose.model('data_location');
 
 // ----------------------------- Navigation ------------------------------------
 exports.homePage = async (req, res) => {
-  res.render('index');
+  res.render('index', { title: "Home" });
+};
+exports.aboutPage = async (req, res) => {
+  res.render('about', { title: "About" });
+};
+exports.worksPage = async (req, res) => {
+  res.render('my_work', { title: "Works" });
+};
+exports.resumePage = async (req, res) => {
+  res.render('resume', { title: "Resume" });
+};
+exports.contactPage = async (req, res) => {
+  res.render('contact', { title: "Contact" });
 };
 
 
@@ -23,5 +35,5 @@ exports.addLocationData = async (req, res) => {
 };
 
 exports.viewLocationData = async (req, res) => {
-  res.render('location');
+  res.render('location', { title: "Location Data" });
 };

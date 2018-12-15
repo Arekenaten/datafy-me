@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .inner
+    h2 Contact Me
+    p Thanks for taking the time to look around the site! If there's anything you want to let me know or any questions you have about my work I'd love to talk to you about it. Just fill out the form below and I'll get back to you as soon as I have the time.
+    
+    .card(style="background: #2c2c2c; margin-top: 75px;")
+      form.form(action="/" style="background: #fff; padding: 20px;")
+        label(for="name") Name
+        input(type="text" name="name")
+        label(for="email") Email
+        input(type="email" name="email")
+        label(for="comment") Comment
+        input(type="textarea" name="comment" rows="10" cols="50") 
+        input.button(type="submit" value="Register →" style="margin-top: 20px;")  
+        
