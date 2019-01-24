@@ -26,10 +26,10 @@ exports.addLocationData = async (req, res) => {
   const coordinates = [req.body.lat, req.body.long];
   const location = await (new Location(
     {
-      location: {coordinates: coordinates},
-      numVisits: req.body.numVisits
+      location: {coordinates: coordinates}
     }
   )).save();
+
   // Redirect to location data page
   res.redirect('/api/location');
 };
