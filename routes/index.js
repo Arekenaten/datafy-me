@@ -20,4 +20,12 @@ router.post('/api/location',
   siteController.addLocationData
 );
 
+// Fitbit data API
+router.get('/api/fitbit/authorize', catchErrors(authController.authenticateFitbit));
+router.get('/api/fitbit/callback', catchErrors(authController.storeFitbitKey));
+router.get('/api/fitbit/getSleepData', 
+  authController.refreshFitbitKey,
+  siteController.getSleepData
+); 
+
 module.exports = router;

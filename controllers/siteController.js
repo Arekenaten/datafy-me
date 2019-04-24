@@ -1,6 +1,8 @@
 // Controller for data handling and navigation
 const mongoose = require('mongoose');
 const Location = mongoose.model('data_location');
+const FitbitApiClient = require("fitbit-node");
+const Fitbit_key = mongoose.model('fitbit_key');
 
 // ----------------------------- Navigation ------------------------------------
 exports.homePage = async (req, res) => {
@@ -37,3 +39,24 @@ exports.addLocationData = async (req, res) => {
 exports.viewLocationData = async (req, res) => {
   res.render('location', { title: "Location Data" });
 };
+
+
+// ---------------------------- Fitbit Data -------------------------------------
+// Connect to fitbit api
+const client = new FitbitApiClient({
+  clientId: process.env.FITBIT_CLIENT_ID,
+  clientSecret: process.env.FITBIT_CLIENT_SECRET,
+  apiVersion: '1.2' // 1.2 is the default
+});
+
+exports.getSleepData = async (req, res) => {
+  // Get the fitbit key from database
+  const fitbit_key = await Fitbit_key.findOne({});
+  // Call fitbit api using authKey (sample date)
+  client.get(`/sleep/date/2019-04-19.json`, fitbit_key.authKey).then(results => {
+    // Placehold results
+    res.send(results);
+  }).catch(err => {
+    res.send(err);
+  })
+}

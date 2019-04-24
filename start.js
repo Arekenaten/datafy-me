@@ -14,14 +14,12 @@ mongoose.connection.on('error', (err) => {
 
 // Import all models here
 require('./models/data_location');
+require('./models/fitbit_key');
 require('./models/key');
 
 // Start the app
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);
-// const server = app.listen(app.get('port'), () => {
-//   console.log(`Express running -> PORT ${server.address().port}`);
-// });
 
 https.createServer({
   key: fs.readFileSync('sslcert/server.key'),

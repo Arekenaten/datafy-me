@@ -2,11 +2,21 @@
 const mongoose = require('mongoose');
 const Key = mongoose.model('key');
 const md5 = require('md5');
+const FitbitApiClient = require("fitbit-node");
+const Fitbit_key = mongoose.model('fitbit_key');
+
+
+// Connect to fitbit api
+const client = new FitbitApiClient({
+  clientId: process.env.FITBIT_CLIENT_ID,
+  clientSecret: process.env.FITBIT_CLIENT_SECRET,
+  apiVersion: '1.2' // 1.2 is the default
+});
 
 // Method for authenticating API keys passed in the message body
 exports.authenticateKey = async (req, res, next) => {
   const hashed = md5(req.body.key);
-  const success = await Key.findOne({key: hashed});
+  const success = await Key.findOne({ key: hashed });
   if (!success) {
     res.send(`Your API key wasn't found. Please try again.`);
   } else {
@@ -58,4 +68,40 @@ exports.processLocationData = async (req, res, next) => {
   } else {
     next();
   }
+}
+
+// Fitbit authenticate
+exports.authenticateFitbit = async (req, res) => {
+  // request access to the user's activity, heartrate, location, nutrion, profile, settings, sleep, social, and weight scopes
+  res.redirect(client.getAuthorizeUrl('activity heartrate location nutrition profile settings sleep social weight', `https://${process.env.SITE_DOMAIN}/api/fitbit/callback`));
+}
+// Authenticate callback function to get access token
+exports.storeFitbitKey = async (req, res) => {
+  // Call fitbit api using code from callback to get access token
+  client.getAccessToken(req.query.code, `https://${process.env.SITE_DOMAIN}/api/fitbit/callback`).then(async results => {
+    // Clear any keys that exist in the database
+    await Fitbit_key.deleteMany({});
+    // Store new key in database
+    const fitbit_key = await (new Fitbit_key(
+      {
+        authKey: results.access_token,
+        refreshKey: results.refresh_token
+      }
+    )).save();
+    // Placehold results
+    res.send(fitbit_key);
+  })
+}
+exports.refreshFitbitKey = async (req, res, next) => {
+  // Get the fitbit key from database
+  const fitbit_key = await (Fitbit_key.findOne({}));
+  // Call fitbit api to get updated authKey if needed
+  await client.refreshAccessToken(fitbit_key.authKey, fitbit_key.refreshKey).then(async results => {
+    // Refresh keys on fitbit_key with results
+    fitbit_key.authkey = results.access_token;
+    fitbit_key.refreshKey = results.refresh_token;
+  });
+  // Call save to update database
+  fitbit_key.save();
+  next();
 }
