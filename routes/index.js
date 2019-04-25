@@ -11,6 +11,7 @@ router.get('/about', catchErrors(siteController.aboutPage));
 router.get('/works', catchErrors(siteController.worksPage));
 router.get('/resume', catchErrors(siteController.resumePage));
 router.get('/contact', catchErrors(siteController.contactPage));
+router.get('/myLifeInData', catchErrors(siteController.myLifeInDataPage));
 
 // Location data API
 router.get('/api/location', catchErrors(siteController.viewLocationData));

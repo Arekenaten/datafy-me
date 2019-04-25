@@ -20,7 +20,9 @@ exports.resumePage = async (req, res) => {
 exports.contactPage = async (req, res) => {
   res.render('contact', { title: "Contact" });
 };
-
+exports.myLifeInDataPage = async (req, res) => {
+  res.render('my_life_in_data', { title: "My Life in Data" });
+};
 
 // ---------------------------- Location Data ----------------------------------
 // Add location data

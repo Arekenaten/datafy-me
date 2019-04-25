@@ -1,0 +1,74 @@
+extends layout
+
+block content
+  .inner
+    h1 My Life in Data
+    h2 Chase Miller - NKU Senior Capstone
+
+
+    h3 Overview
+    p My Life in Data is the name that I've given to my senior capstone at Northern Kentucky University. The project is a culmination of my academic experience so far and spans the final two semesters of my time at NKU. In the project, I am exploring the effect of having access to personal data on an individual's self-awareness. Here I outline the project and conclusions I drew from it. More detailed explainations may be written in the future.
+    p To begin the project, I took a series of courses by several fantastic web developers to learn Node.js, Express.js, Mongodb, CSS Grid, and other web technologies that are being used by web developers in the industry. Using this knowledge, I created the web-server, a database, and API endpoints that I can submit my personal data to. Using various other methods, I collected data about my life and stored it in my personal database.
+    p In the second phase of the project, I planned to begin sifting through the data collected in the first semester while also adding new data-points to track. Unfortunately, there were some technical hurdles to cross first and I spent the majority of the second semester refining the existing code, adding support for collecting data from the FitBit Web API, and implementing security measures.
+    h4 Goal: To determine if I can use my own personal data to motivate me to improve my life.
+    p Ultimately I wanted to use this project to see if I could find patterns in the data that makes up my life. At the end of the academic year, I had collected data on my location, activity levels, sleep, mood, and had just begun tracking what I was eating and drinking on a daily basis. The idea was to format this data for comparison so I could track if changes in one (or more) of the data-sets would have an effect on others.
+    h4 Conclusion: I can't use my own personal data to motivate me to improve my life... At least not yet.
+    p From what I could see, there were no discernable changes in the data I was tracking. This being said, there are so many more data points that I could track, analyze, and visualize that I don’t think it’s reasonable to dismiss the Goal outright. At the end of the academic year, I had just scratched the surface of collecting my personal data; and I barely had any time at all to dedicate to analysis and visualizations of said data. Knowing it was being tracked alone wasn't enough, but maybe being able to see and compare data-sets will be in the future.  
+
+
+    h3 Technologies: What I used
+    h4 Node.js and Express.js
+    p From the #[a(target="_blank" href="https://nodejs.org/en/about/") Node.js official website:] "As an asynchronous event driven JavaScript runtime, Node is designed to build scalable network applications." This means that JavaScript is no longer a language consigned to the web browser! Because Node uses something called an #[a(target="_blank" href="https://nodejs.org/de/docs/guides/event-loop-timers-and-nexttick/") Event Loop], several users can make requests to the server at once and it will avoid slowing down because it is trying to handle something for one user. This makes Node great for a web server, because many users will connect all at once and will want access to different resources at the same time.
+    p #[a(target="_blank" href="https://expressjs.com") Express.js] is a Node module (classes and methods available for your use) that gives you access to some additional functionality for setting up a web server. Using express, you can set up access to the user's request, easily send data in a response, and handle routing (deciding what pages to send the user based on what they request) without having to get into network socket programming yourself.
+
+    h4 Mongodb and Mongoose
+    p #[a(target="_blank" href="https://www.mongodb.com/what-is-mongodb") Mongodb] is a database that stores information in JSON like documents that play nice with JavaScript. The database is easier to use than other alternatives because you don't need to learn an entirely new style of writing queries. Everything you manage in Mongodb, like your collections and users, is built as an object. Access data, modify data, and remove data by calling an associated method on your collection object and providing a filter to get just what you want. These filters look like JSON, but have some additional functionality like comparing greater-than or less-than values.
+    p Like Express, #[a(target="_blank" href="https://mongoosejs.com/") Mongoose] is a Node module that lets you connect to a Mongodb database and write queries directly from the Node process. Again, this simplifies some of the heavier underlying programming, because you don't need to build queries from scratch every time you want to run them. Instead, you call a method on your database connection and write the query into your server itself. Mongoose also allows you to easily create new data models in the server without needing to interact with the Mongodb shell at all!
+
+
+    h3 Methods: What I did
+    h4 Getting started
+    p To start the project, I needed to get my head wrapped around several new concepts. I started with learning all I could about Node best practices and design. I learned about #[a(target="_blank" href="https://www.npmjs.com/") NPM], which lets you package your Node application nicely and gives you access to Node modules like Express and Mongoose. Then I learned the MVC (Model, View, Controller) style of programming a network application. After this, I wanted to dig more into Mongodb and learn more about what queries I could run and how to best secure my data. There were also little things thrown in that needed to be learned, like a templating engine for HTML, called #[a(target="_blank" href="https://pugjs.org/api/getting-started.html") PUG], that lets me put my data together with the structure of the page.
+    p Needless to say: it was #[span(style="font-weight: bold;") a lot].
+    p I got a simple server written in the MVC style up and running on a dedicated computer provided by a hosting company and pointed a domain name to it using the tools built in to my domain-name provider. I set up a single route to the server's root, put in big letters "Hello World!" in the file I wanted to serve to the user, and felt like a developer for a solid 20 minutes until I realized how much more there was to do.
+
+    h4 Location Data - the setup
+    p The goal for the first semester of the project was to set up a server and a database, then track my location every X minutes and store that data in my database. Getting the location data on my phone was relatively easy thanks to an app called Tasker that let me set a repeating timer and pull my location with the phone's GPS every time the timer cycled. The tricky part was getting that data from my phone to the database on a computer in Chicago.
+    p To solve this problem, I needed to set up an API (or Application Programming Interface) on my server. An API is basically like a window that faces the outside world from your server. If done properly, an API will allow an individual to put data into a database or pull data from a database just by sending a request through a web browser to a dedicated page, or API 'endpoint'.
+    p By the end of the first semester, I had this API functioning and could push and pull data to and from my database from anywhere I had access to the internet. But there was a problem, so could anyone else.
+
+    h4 Location Data - security
+    p The first major issue I ran into with the project came up when I realized that I was going to be tracking a lot of personal information. At the end of the first semester, I was basically giving anyone who knew my project existed free reign to add to or view my location data. Which was, understandably, a huge issue. I closed the API after testing it once and started working on security.
+    p I knew that I could give myself an identification token so I (or my server) would be the only parties capable of accessing my data. Using this method means I would need to set up HTTPS to protect that key while it was being used from anyone with the technical know-how to sniff it out. One of the largest technical hurdles of the project was setting up HTTPS and enforcing its use on the server. To avoid going into too much detail, I ended up needing a second (much less complicated) server to redirect all HTTP traffic to the same location, but using HTTPS. 
+
+    h4 Fitbit Data - oAuth
+    p The second phase of the project was largely spent navigating the Fitbit Web API and implementing oAuth to play nice with that API. I used a Fitbit device to measure my sleep and activity data and slowly built functionality into my server to communicate with their API. 
+    p To make a long story short, Fitbit has a multi-user (enterprise level) API. This means they need some serious security protocols to protect their users and make sure they are who they say they are. Getting the API to recognize my server and talk to it involved a series of authorizations and key exchanges that I needed to handle. 
+    p At the end of the last semester of the project, I had successfully authenticated and pulled sleep data from the Fitbit Web API. From that point, I decided I wanted to focus on playing with the data that I had. 
+
+    h4 Location Data - visualization
+    p Visualizing my location data involved pulling a specific number of data points from my database and 'massaging' that data into a format that I could use to plot points onto a map. First I needed a map though. Google luckily has a fantastic API for their Google Maps application that I used to apply a heatmap style visualization to show my location data.
+    p Here are the results from 30 consecutive days in the semester:
+
+    .works_row
+      img(src="/images/static/location_cincinnatiView.png" style="padding: 0px 4px; width: 80%; margin: 0 auto;")
+      p.card(style="width: 80%; margin: 10px auto 40px;") Location data from 30 consecutive days in the semester as a heatmap refined for Cincinnati area data.
+      img(src="/images/static/location_tripView.png" style="padding: 0px 4px; width: 80%; margin: 0 auto;")
+      p.card(style="width: 80%; margin: 10px auto 30px;") Location data from 30 consecutive days in the semester as a heatmap showing all data points.
+
+    h4 Fitbit Data - visualization
+    p Fitbit data visualized using tools from fitbit: 
+
+    .works_row
+      img(src="/images/static/activity_yearView.png" style="padding: 0px 4px; width: 80%; margin: 0 auto;")
+      p.card(style="width: 80%; margin: 10px auto 40px;") Activity data from December 2018 to April 2019.
+      img(src="/images/static/activity_monthView.png" style="padding: 0px 4px; width: 80%; margin: 0 auto;")
+      p.card(style="width: 80%; margin: 10px auto 30px;") Activity data from March 25, 2019 to April 24, 2019.
+      img(src="/images/static/sleep_yearView.png" style="padding: 0px 4px; width: 80%; margin: 0 auto;")
+      p.card(style="width: 80%; margin: 10px auto 40px;") Sleep data from December 2018 to April 2019.
+      img(src="/images/static/sleep_monthView.png" style="padding: 0px 4px; width: 80%; margin: 0 auto;")
+      p.card(style="width: 80%; margin: 10px auto 30px;") Sleep data from March 26, 2019 to April 21, 2019.
+
+
+    h3 Conclusions: What I learned
+    p Looking through this data as well as mood data that I am choosing not to show to the public, I can't see any trends (yet) that indicate I am able to influence my life by having this data. I haven't spent much time doing analysis, and I plan to do more and collect more in the future, so there is still hope. At this point in time there just isn't enough information for me to know for sure. I'll be updating this site and these pages as I go, so hopefully in the future there will be more to see and read. Until then, I will keep learning and developing as I go.
