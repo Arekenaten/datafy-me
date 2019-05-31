@@ -21,10 +21,12 @@ require('./models/key');
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);
 
-https.createServer({
-  key: fs.readFileSync('sslcert/server.key'),
-  cert: fs.readFileSync('sslcert/server.cert')
-}, app)
+const options = {
+  cert: fs.readFileSync('./sslcert/fullchain.pem'),
+  key: fs.readFileSync('./sslcert/privkey.pem')
+};
+
+https.createServer(options, app)
 .listen(app.get('port'), () => {
   console.log(`Express running -> PORT ${app.get('port')}`)
 })
